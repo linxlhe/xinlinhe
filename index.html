@@ -127,7 +127,7 @@
                                         My most recent job at Juliette sparked my interest in 
                                         <a class="font-medium text-slate-200  focus-visible:text-teal-300" target="_blank" rel="noreferrer noopener" aria-label="front end development">front-end development</a>. 
 
-                                        In five years, I envision myself designing and creating visually pleasing and aesthetic websites that offer seamless online experiences for users.   
+                                        In five years, I envision myself designing and creating visually pleasing websites that offer seamless online experiences for users.   
                                     </p>
                                     <p>
                                         Outside of work, I am a part-time 
@@ -247,7 +247,7 @@
                                         <li class="mb-12">
                                             <div class="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                                                 <div class="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
-                                                <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="July to December 2017">July — Dec 2017</header>
+                                                <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="July to December 2017">Feb - April 2024</header>
                                                 <div class="z-10 sm:col-span-6">
                                                     <h3 class="font-medium leading-snug text-slate-200">
                                                         <div>
@@ -648,11 +648,34 @@
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const links = document.querySelectorAll('.nav a');
+                const sections = document.querySelectorAll('section'); // Assuming each link points to a section
+
+                function activateLink(link) {
+                    links.forEach(link => link.classList.remove('active'));
+                    link.classList.add('active');
+                }
 
                 links.forEach(link => {
                     link.addEventListener('click', function(event) {
-                        links.forEach(link => link.classList.remove('active'));
-                        this.classList.add('active');
+                        activateLink(this);
+                    });
+                });
+
+                window.addEventListener('scroll', () => {
+                    let currentSection = '';
+
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        const sectionHeight = section.clientHeight;
+                        if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+
+                    links.forEach(link => {
+                        if (link.getAttribute('href').includes(currentSection)) {
+                            activateLink(link);
+                        }
                     });
                 });
             });
